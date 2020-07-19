@@ -8,7 +8,7 @@
 lru-cache, immer, md5 etc.
 ```
 
-- Until the data is fetched, the suspense will catch the promise thrown by useFetchSuspense and will render fallback, which can by any Loading component of your choice. After the promise is resolved, suspense will then render the component.
+- Until the data is fetched, the suspense will catch the promise thrown by use-custom-fetch-suspense and will render fallback, which can by any Loading component of your choice. After the promise is resolved, suspense will then render the component.
 Also, it has been made sure that it doesn't make the same ajax call request again and again. For this, data is stored in cache.
 
 ### Installation
@@ -27,13 +27,15 @@ npm i use-custom-fetch-suspense
 ```js
 
 // Ajax call without any useEffect or  unecessary loading/loaded state handling thing.
+import useFetchSuspense from 'use-custom-fetch-suspense';
+
 const SomeThang = () => {
 
     const res = useFetchSuspense(`https://some-api.com`);
 
     return (
         <div className='container'>
-        <h1>use-custom-fetch-suspense</h1>
+        <h1>use-custom-fetch-suspense demo</h1>
             <ol className='collection'>
                 { res.data.map(data => <li className='collection-item' key={data.id}>
                     { data.title }
