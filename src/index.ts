@@ -1,6 +1,7 @@
 import produce from 'immer';
 import lru from 'lru-cache';
 import md5 from 'md5';
+import fetchRoutes from './fetchRoutes'
 
 const cache = new lru(50);
 
@@ -13,7 +14,7 @@ export default (url: string, options: object={}) => {
         return value.data;
     }
 
-    const promise = fetch(url, options).then(res => res.json());
+    const promise = fetchRoutes(url, options);
 
     promise.then(data => {
         cache.set(key, produce(value, (draft: any) => {

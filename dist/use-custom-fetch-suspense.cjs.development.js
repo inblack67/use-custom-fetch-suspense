@@ -8,6 +8,12 @@ var produce = _interopDefault(require('immer'));
 var lru = _interopDefault(require('lru-cache'));
 var md5 = _interopDefault(require('md5'));
 
+var fetchRoutes = (function (url, options) {
+  return fetch(url, options).then(function (res) {
+    return res.json();
+  });
+});
+
 var cache = /*#__PURE__*/new lru(50);
 var index = (function (url, options) {
   if (options === void 0) {
@@ -24,9 +30,7 @@ var index = (function (url, options) {
     return value.data;
   }
 
-  var promise = fetch(url, options).then(function (res) {
-    return res.json();
-  });
+  var promise = fetchRoutes(url, options);
   promise.then(function (data) {
     cache.set(key, produce(value, function (draft) {
       draft.status = 'resolved';
